@@ -20,6 +20,7 @@ var seven = document.getElementById("seven");
 var eight = document.getElementById("eight");
 var nine = document.getElementById("nine");
 
+var squareroot = document.getElementById("squareroot");
 var times = document.getElementById("times");
 var minus = document.getElementById("minus");
 var plus = document.getElementById("plus");
@@ -41,10 +42,11 @@ seven.addEventListener("click", function(event) { numInput(event, 7)});
 eight.addEventListener("click", function(event) { numInput(event, 8)}); 
 nine.addEventListener("click", function(event) { numInput(event, 9)}); 
 
-times.addEventListener("click", function(event) { multiply(event) }); 
-minus.addEventListener("click", function(event) { subtract(event) }); 
-plus.addEventListener("click", function(event) { add(event) }); 
-divide.addEventListener("click", function(event) { division(event) }); 
+squareroot.addEventListener("click", function(event) { sqRoot(event) });
+times.addEventListener("click", function(event) { operation(event, "times") }); 
+minus.addEventListener("click", function(event) { operation(event, "minus") }); 
+plus.addEventListener("click", function(event) { operation(event, "plus") }); 
+divide.addEventListener("click", function(event) { operation(event, "divide") }); 
 equals.addEventListener("click", function(event) { findTotal(event) }); 
 
 var currentNum = "";
@@ -59,39 +61,20 @@ function numInput(event, arg) {
 	updateDisplay();
 }
 
-function multiply(event) {
+function operation(event, op) {
 	event.preventDefault();
-	if(currentOperation === "") {
-		currentOperation = "times";
-		lastNum = currentNum;
-		currentNum = "";
-	} 
+	currentOperation = op;
+	lastNum = currentNum;
+	currentNum = "";
+	
 }
 
-function subtract(event) {
+function sqRoot(event) {
 	event.preventDefault();
 	if(currentOperation === "") {
-		currentOperation = "minus";
-		lastNum = currentNum;
-		currentNum = "";
-	} 
-}
-
-function add(event) {
-	event.preventDefault();
-	if(currentOperation === "") {
-		currentOperation = "add";
-		lastNum = currentNum;
-		currentNum = "";
-	} 
-}
-
-function division(event) {
-	event.preventDefault();
-	if(currentOperation === "") {
-		currentOperation = "divide";
-		lastNum = currentNum;
-		currentNum = "";
+		currentOperation = "squareroot";
+		currentNum = Math.sqrt(Number(currentNum));
+		updateDisplay();
 	} 
 }
 
@@ -125,7 +108,7 @@ function findTotal(event) {
 		result = lastNum*currentNum;
 	} else if( currentOperation === "minus" ) {
 		result = lastNum-currentNum;
-	} else if( currentOperation === "add" ) {
+	} else if( currentOperation === "plus" ) {
 		result = lastNum+currentNum;
 	} else if( currentOperation === "divide" ) {
 		result = lastNum/currentNum;
